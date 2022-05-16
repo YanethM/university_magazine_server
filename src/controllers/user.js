@@ -17,7 +17,7 @@ function signUp(req, res) {
     if (password !== repeatPassword) {
       res.status(404).send({ message: "Las contraseñas no coinciden" });
     } else {
-      bcrypt.hash(password, null, null, function (err, hash) {
+      bcrypt.hash(password, null, null, (err, hash) => {
         /* No funciono la encriptación */
         if (err) {
           res

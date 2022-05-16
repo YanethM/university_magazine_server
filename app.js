@@ -9,6 +9,7 @@ const userRoutes = require("./src/routes/user");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+/* Creación de los endpoint del proyecto */
 app.use(`/api/${API_VERSION}`, userRoutes);
 
 /* Condiguración de los header HTTP */
