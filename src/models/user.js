@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
 const UserSchame = mongoose.Schema({
-  name: {
+  name_user: {
     type: String,
-    require: true,
+    /* require: true, */
   },
   lastname: {
     type: String,
-    require: true,
+    /* require: true, */
   },
   email: {
     type: String,
@@ -18,15 +18,15 @@ const UserSchame = mongoose.Schema({
   },
   role: {
     type: String,
-    require: true,
+    /* require: true, */
   },
   active: {
     type: Boolean,
-    require: true,
+    /* require: true, */
   },
   avatar: {
     type: String,
-    require: false,
+    /* require: false, */
   },
 });
 
