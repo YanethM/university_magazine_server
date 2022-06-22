@@ -112,6 +112,7 @@ const activateUser = (req, res) => {
 
 function uploadAvatar(req, res) {
   const params = req.params;
+  console.log("uploadAvatar");
   User.findById({ _id: params.id }, (err, userData) => {
     if (err) {
       res.status(500).send({ message: "Error del servidor." });
@@ -125,13 +126,14 @@ function uploadAvatar(req, res) {
           let filePath = req.files.avatar.path;
           let fileSplit = filePath.split("/");
           let fileName = fileSplit[2];
+
           let extSplit = fileName.split(".");
           let fileExt = extSplit[1];
 
           if (fileExt !== "png" && fileExt !== "jpg") {
             res.status(400).send({
               message:
-                "La extension de la imagen no es valida. (Extensiones permitidas: .png y .jpg)",
+                "La extension de la imagen no es valida. (Extensiones permitidas: .png y .jpg)"
             });
           } else {
             user.avatar = fileName;
@@ -161,9 +163,9 @@ function uploadAvatar(req, res) {
 
 function getAvatar(req, res) {
   const avatarName = req.params.avatarName;
-  const filePath = "./assets/avatar" + avatarName;
+  const filePath = "./uploads/avatar/" + avatarName;
 
-  fs.exists(filePath, (exists) => {
+  fs.exists(filePath, exists => {
     if (!exists) {
       res.status(404).send({ message: "El avatar que buscas no existe." });
     } else {
@@ -171,6 +173,7 @@ function getAvatar(req, res) {
     }
   });
 }
+
 
 async function updateUser(req, res) {
   let userData = req.body;
