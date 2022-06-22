@@ -1,6 +1,8 @@
 const bcrypt = require("bcrypt-nodejs");
 const User = require("../models/user");
 const jwt = require("../services/jwt");
+const fs = require("fs");
+const path = require("path");
 
 const signUp = (req, res) => {
   const user = new User();
@@ -112,7 +114,7 @@ const activateUser = (req, res) => {
 
 function uploadAvatar(req, res) {
   const params = req.params;
-  console.log("uploadAvatar");
+
   User.findById({ _id: params.id }, (err, userData) => {
     if (err) {
       res.status(500).send({ message: "Error del servidor." });
@@ -124,9 +126,10 @@ function uploadAvatar(req, res) {
 
         if (req.files) {
           let filePath = req.files.avatar.path;
-          let fileSplit = filePath.split("/");
+          console.log(filePath);
+          let fileSplit = filePath.split("\\");
           let fileName = fileSplit[2];
-
+          console.log(fileName);
           let extSplit = fileName.split(".");
           let fileExt = extSplit[1];
 
@@ -165,7 +168,7 @@ function getAvatar(req, res) {
   const avatarName = req.params.avatarName;
   const filePath = "./uploads/avatar/" + avatarName;
 
-  fs.exists(filePath, exists => {
+  fs.exists(filePath, (exists) => {
     if (!exists) {
       res.status(404).send({ message: "El avatar que buscas no existe." });
     } else {
@@ -173,7 +176,6 @@ function getAvatar(req, res) {
     }
   });
 }
-
 
 async function updateUser(req, res) {
   let userData = req.body;
